@@ -23,6 +23,8 @@ spec:
         kubeProxy:
           enabled: false
         grafana:
+          admin:
+            existingSecret: grafana-admin
           resources:
             requests: {cpu: 50m, memory: 128Mi}
             limits: {memory: 256Mi}
