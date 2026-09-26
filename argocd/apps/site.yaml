@@ -12,7 +12,7 @@ spec:
     helm:
       releaseName: site
       valuesObject:
-        message: "Changed via helm upgrade"
+        message: "Deployed by Argo CD from git"
   destination:
     server: https://kubernetes.default.svc
     namespace: default
