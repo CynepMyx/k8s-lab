@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: podinfo-alerts
+  labels:
+    release: kps
+spec:
+  groups:
+    - name: podinfo
+      rules:
+        - alert: PodinfoHighErrorRate
+          expr: |
+            sum(rate(http_request_duration_seconds_count{service="demo-podinfo", status=~"5.."}[1m]))
+              /
+            sum(rate(http_request_duration_seconds_count{service="demo-podinfo"}[1m]))
+              > 0.1
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "podinfo: доля 5xx {{ $value | humanizePercentage }}"
